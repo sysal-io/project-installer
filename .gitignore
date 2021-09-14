@@ -1,0 +1,8 @@
+!*/.gitkeep
+/.env
+/.composer/vendor/
+/projects
+/.docker/nginx/conf.d/
+!/.docker/nginx/conf.d/php.conf
+!/.docker/nginx/conf.d/phpmyadmin.conf
+!/.docker/nginx/conf.d/wordpress.conf.example

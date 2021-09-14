@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="wpillar" default="install-or-update">
+
+    <!-- ===================================================================== -->
+    <!-- Target: install-or-update                                             -->
+    <!-- ===================================================================== -->
+    <target name="install-or-update">
+        <if>
+            <available file=".projects"/>
+            <then>
+                <echo message="project-file exists" />
+            </then>
+            <else>
+                <touch file=".projects" />
+            </else>
+        </if>
+    </target>
+
+</project>

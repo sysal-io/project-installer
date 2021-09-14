@@ -1,0 +1,82 @@
+version: '3.9'
+
+# Services
+services:
+
+  # Nginx Service
+  nginx:
+    image: nginx:1.21-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./projects:/var/www/projects
+      - ./src:/var/www/local
+      - ./.docker/nginx/conf.d:/etc/nginx/conf.d
+      - phpmyadmindata:/var/www/phpmyadmin
+    depends_on:
+      - php
+      - phpmyadmin
+
+  # PHP Service
+  php:
+    build: ./.docker/php
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www/local
+      - ./projects:/var/www/projects
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # MySQL Service
+  mysql:
+    image: mysql:8
+    hostname: mysql.tribe
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: demo
+    volumes:
+      - ./.docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - mysqldata:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
+      interval: 5s
+      retries: 10
+
+  # PhpMyAdmin Service
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5-fpm-alpine
+    environment:
+      PMA_HOST: mysql
+    volumes:
+      - phpmyadmindata:/var/www/html
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # DNS Service
+  dns:
+    image: strm/dnsmasq
+    restart: always
+    volumes:
+      - ./.docker/dns/dnsmasq.conf:/etc/dnsmasq.conf
+    ports:
+      - "53:53/udp"
+    cap_add:
+      - NET_ADMIN
+
+  # Composer Service
+  composer:
+    image: composer/composer
+    volumes:
+      - ./.composer:/app
+      - ./projects:/projects
+    working_dir: /app
+    command: tail -F anything;
+
+# Volumes
+volumes:
+  mysqldata:
+  phpmyadmindata:
