@@ -6,6 +6,7 @@ wpillar="./wpillar"
 ##  docker compose down -v --rmi all --remove-orphans
 ##  docker compose exec -w/var/www/projects/wpillar php wp --allow-root db create
 ##  docker compose exec -w/projects/wpillar composer composer install
+##  docker compose restart
 
 case "$1" in
     init)

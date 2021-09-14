@@ -31,7 +31,7 @@ services:
   # MySQL Service
   mysql:
     image: mysql:8
-    hostname: mysql.tribe
+    hostname: mysql.local
     ports:
       - 3306:3306
     environment:
