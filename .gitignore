@@ -1,8 +1,14 @@
 !*/.gitkeep
+
+## CONFIG FILES
+/projects.json
 /.env
-/.composer/vendor/
-/projects
+
+## DOCKER FILES
 /.docker/nginx/conf.d/
 !/.docker/nginx/conf.d/php.conf
 !/.docker/nginx/conf.d/phpmyadmin.conf
 !/.docker/nginx/conf.d/wordpress.conf.example
+
+## PROJECT FILES
+/projects

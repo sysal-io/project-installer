@@ -1,21 +1,30 @@
 #!/bin/bash
 
+parent_dir=$(
+	cd "$(dirname "${BASH_SOURCE[0]}")"
+	pwd -P
+)
+
 phing=".composer/vendor/bin/phing"
 wpillar="./wpillar"
 
 ##  docker compose down -v --rmi all --remove-orphans
 ##  docker compose exec -w/var/www/projects/wpillar php wp --allow-root db create
 ##  docker compose exec -w/projects/wpillar composer composer install
-##  docker compose restart
 
 case "$1" in
     init)
       docker compose up -d
-      if [ -d ".composer/vendor/bin" ]; then
-        $phing
-	    else
-	      docker compose exec composer composer install
-	    fi
+      docker compose exec composer composer global exec phing
+      ;;
+    restart)
+      docker compose restart
+      ;;
+    stop)
+      docker compose stop
+      ;;
+    down)
+      docker compose down -v --rmi all --remove-orphans
       ;;
     *)
         cat << EOF

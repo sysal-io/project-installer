@@ -69,12 +69,22 @@ services:
 
   # Composer Service
   composer:
-    image: composer/composer
+    build: ./.docker/composer
     volumes:
-      - ./.composer:/app
-      - ./projects:/projects
+      - ./:/app
     working_dir: /app
     command: tail -F anything;
+
+  # Node Service
+  node:
+    build: ./.docker/nodejs
+    ports:
+      - 8888:8888
+    volumes:
+      - ./projects:/home/node/projects
+    working_dir: /home/node/projects
+    environment:
+      - NODE_ENV=development
 
 # Volumes
 volumes:

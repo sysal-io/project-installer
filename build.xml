@@ -12,7 +12,7 @@
                 <echo message="project-file exists" />
             </then>
             <else>
-                <touch file=".projects" />
+                <copy file="/.files/projects.json" tofile="projects.json" />
             </else>
         </if>
     </target>
