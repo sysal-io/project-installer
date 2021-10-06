@@ -1,7 +1,5 @@
-!*/.gitkeep
-
 ## CONFIG FILES
-/projects.json
+/.projects
 /.env
 
 ## DOCKER FILES
@@ -9,6 +7,6 @@
 !/.docker/nginx/conf.d/php.conf
 !/.docker/nginx/conf.d/phpmyadmin.conf
 !/.docker/nginx/conf.d/wordpress.conf.example
-
-## PROJECT FILES
-/projects
+/.docker/nginx/certs/
+!/.docker/nginx/certs/server.csr.cnf
+!/.docker/nginx/certs/v3.ext

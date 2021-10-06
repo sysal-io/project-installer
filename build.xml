@@ -1,20 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="wpillar" default="install-or-update">
+<project name="wpillar-installer" default="init">
 
     <!-- ===================================================================== -->
     <!-- Target: install-or-update                                             -->
     <!-- ===================================================================== -->
-    <target name="install-or-update">
+    <target name="init">
         <if>
             <available file=".projects"/>
             <then>
                 <echo message="project-file exists" />
             </then>
             <else>
-                <copy file="/.files/projects.json" tofile="projects.json" />
+                <copy file=".files/.projects.example" tofile=".projects" />
             </else>
         </if>
+    </target>
+
+    <target name="install-project">
+        <property file=".projects" />
+        <!-- loop through files, and call subtask task with set param and absparam -->
+        <foreach list="${projects}" param="project" target="subtask" />
+    </target>
+
+    <target name="subtask">
+        <property name="project_name" value="${project}" />
+        <property name="project_domain" value="${${project}.domain}" />
+        <property name="project_repo" value="${${project}.repository}" />
+        <property name="project_branch" value="${${project}.branch}" />
+        <property name="project_conffile" value=".docker/nginx/conf.d/${project_name}.conf" />
+        <property name="project_dir" value="projects/${project_name}" />
+
+        <available file="${project_dir}" type="dir" property="project_installed" />
+        <if>
+            <istrue value="${project_installed}" />
+            <then>
+
+            </then>
+            <else>
+                <mkdir dir="${project_dir}" />
+                <gitclone repository="git://${project_repo}" targetPath="${project_dir}" branch="${project_branch}" />
+            </else>
+        </if>
+
+        <copy file=".files/wordpress.conf" tofile="${project_conffile}" />
+        <replaceregexp file="${project_conffile}" match="{{project_name}}" replace="${project_name}" />
     </target>
 
 </project>

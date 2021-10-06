@@ -1,0 +1,4 @@
+projects=wpillar
+
+wpillar.domain=example.com
+wpillar.repository=repository.git

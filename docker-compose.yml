@@ -5,14 +5,16 @@ services:
 
   # Nginx Service
   nginx:
-    image: nginx:1.21-alpine
+    build: ./.docker/nginx
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ./projects:/var/www/projects
       - ./src:/var/www/local
       - ./.docker/nginx/conf.d:/etc/nginx/conf.d
       - phpmyadmindata:/var/www/phpmyadmin
+      - ./.docker/nginx/certs:/etc/nginx/certs
     depends_on:
       - php
       - phpmyadmin
@@ -76,7 +78,7 @@ services:
     command: tail -F anything;
 
   # Node Service
-  node:
+  nodejs:
     build: ./.docker/nodejs
     ports:
       - 8888:8888
