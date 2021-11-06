@@ -1,4 +1,4 @@
-projects=wpillar
+projects=sysal
 
-wpillar.domain=example.com
-wpillar.repository=repository.git
+sysal.domain=example.com
+sysal.repository=repository.git

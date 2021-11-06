@@ -1,4 +1,4 @@
-# wpillar-installer
+# Sysal Project Installer
 A local environment manager.
 
 How to trust local certificates on windows: https://www.thewindowsclub.com/manage-trusted-root-certificates-windows

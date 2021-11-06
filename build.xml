@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="wpillar-installer" default="init">
+<project name="project-installer" default="init">
 
     <!-- ===================================================================== -->
-    <!-- Target: install-or-update                                             -->
+    <!-- Target: init                                            -->
     <!-- ===================================================================== -->
     <target name="init">
         <if>
@@ -17,13 +17,19 @@
         </if>
     </target>
 
-    <target name="install-project">
+    <!-- ===================================================================== -->
+    <!-- Target: install-projects                                              -->
+    <!-- ===================================================================== -->
+    <target name="install-projects">
         <property file=".projects" />
         <!-- loop through files, and call subtask task with set param and absparam -->
-        <foreach list="${projects}" param="project" target="subtask" />
+        <foreach list="${projects}" param="project" target="install-update-project" />
     </target>
 
-    <target name="subtask">
+    <!-- ===================================================================== -->
+    <!-- Target: install-update-project                                        -->
+    <!-- ===================================================================== -->
+    <target name="install-update-project">
         <property name="project_name" value="${project}" />
         <property name="project_domain" value="${${project}.domain}" />
         <property name="project_repo" value="${${project}.repository}" />

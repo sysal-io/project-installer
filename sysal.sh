@@ -36,6 +36,9 @@ case "$1" in
     restart)
       docker compose restart
       ;;
+    start)
+      docker compose start
+      ;;
     stop)
       docker compose stop
       ;;
@@ -59,7 +62,7 @@ case "$1" in
 Certificate management commands.
 
 Usage:
-    wpillar cert <command> <domain_name>
+    sysal cert <command> <domain_name>
 
 Available commands:
     generate .................................. Generate a new certificate
@@ -75,7 +78,7 @@ EOF
 Command line interface for the Docker-based web development environment tribe-stairs.
 
 Usage:
-    wpillar <command> [options] [arguments]
+    sysal <command> [options] [arguments]
 
 Available commands:
     cert ...................................... Certificate management commands

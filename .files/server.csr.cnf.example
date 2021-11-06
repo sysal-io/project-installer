@@ -1,0 +1,14 @@
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+
+[dn]
+C=BR
+ST=PR
+L=Curitiba
+O=Sysal Tecnologia Ltda
+OU=Tecnologia
+emailAddress=devs@sysal.com.br
+CN = localhost
