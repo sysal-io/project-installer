@@ -1,1 +1,12 @@
+# default behaviour, if no core.autocrlf was defined.
 * text=auto
+
+# Declare file types that you wish to change the line-endings.
+* text
+
+# Declare the files that need the CRLF line-endings.
+#*.sln text eol=crlf
+
+# Files that should not be modified.
+*.png binary
+*.jpg binary
