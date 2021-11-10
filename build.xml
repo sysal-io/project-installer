@@ -7,7 +7,7 @@
     <!-- ===================================================================== -->
     <target name="init">
         <if>
-            <available file=".projects"/>
+            <available property="projects" file=".projects" />
             <then>
                 <echo message="project-file exists" />
             </then>
@@ -51,6 +51,14 @@
 
         <copy file=".files/wordpress.conf" tofile="${project_conffile}" />
         <replaceregexp file="${project_conffile}" match="{{project_name}}" replace="${project_name}" />
+    </target>
+
+    <!-- ===================================================================== -->
+    <!-- Target: create-project                                                -->
+    <!-- ===================================================================== -->
+    <target name="create-project">
+        <input propertyName="project_name" message="Project Name (example)" />
+        <input propertyName="project_domain" message="Project Domain (example.com)" />
     </target>
 
 </project>
