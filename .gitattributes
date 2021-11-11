@@ -2,7 +2,14 @@
 * text=auto
 
 # Declare file types that you wish to change the line-endings.
-* text
+Dockerfile text
+*.example text
+*.json text
+*.conf text
+*.cnf text
+*.xml text
+*.sh text
+*.d text
 
 # Declare the files that need the CRLF line-endings.
 #*.sln text eol=crlf
